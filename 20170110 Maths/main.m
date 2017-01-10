@@ -7,11 +7,41 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AdditionalQuestion.h"
+#import "InputHandler.h"
+#import "ScoreKeeper.h"
 
 int main(int argc, const char * argv[]) {
-    @autoreleasepool {
-        // insert code here...
-        NSLog(@"Hello, World!");
+
+    //
+    //  main.m
+    //  Jan 9 Word Effects
+    //
+    //  Created by Minhung Ling on 2017-01-09.
+    //  Copyright © 2017 Minhung Ling. All rights reserved.
+    //
+    BOOL gameOn = YES;
+    ScoreKeeper *score = [[ScoreKeeper alloc] init];
+    while (gameOn == YES) {
+        AdditionalQuestion *question1 = [[AdditionalQuestion alloc] initWithQuestion];
+        NSLog(@"%@", question1.question);
+        NSString *inputString = [InputHandler handleUserInput];
+
+        if ([inputString isEqualToString:@"quit"]) {
+            gameOn = NO;
+            continue;
+        }
+
+        NSInteger inputInteger = [inputString intValue];
+        if (inputInteger == question1.answer) {
+            NSLog(@"Correct!");
+            score.right++;
+        }
+        else {
+            NSLog (@"Wrong! The answer is %ld.", (long)question1.answer);
+            score.wrong++;
+        }
+        [score scoreTotal];
     }
     return 0;
 }
