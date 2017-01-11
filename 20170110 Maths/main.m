@@ -10,9 +10,10 @@
 #import "AdditionalQuestion.h"
 #import "InputHandler.h"
 #import "ScoreKeeper.h"
+#import "QuestionManager.h"
 
 int main(int argc, const char * argv[]) {
-
+    
     //
     //  main.m
     //  Jan 9 Word Effects
@@ -20,18 +21,20 @@ int main(int argc, const char * argv[]) {
     //  Created by Minhung Ling on 2017-01-09.
     //  Copyright © 2017 Minhung Ling. All rights reserved.
     //
+    QuestionManager *manager = [[QuestionManager alloc] init];
     BOOL gameOn = YES;
     ScoreKeeper *score = [[ScoreKeeper alloc] init];
     while (gameOn == YES) {
         AdditionalQuestion *question1 = [[AdditionalQuestion alloc] initWithQuestion];
+        [manager.questions addObject:question1];
         NSLog(@"%@", question1.question);
         NSString *inputString = [InputHandler handleUserInput];
-
+        
         if ([inputString isEqualToString:@"quit"]) {
             gameOn = NO;
             continue;
         }
-
+        
         NSInteger inputInteger = [inputString intValue];
         if (inputInteger == question1.answer) {
             NSLog(@"Correct!");
@@ -42,6 +45,7 @@ int main(int argc, const char * argv[]) {
             score.wrong++;
         }
         [score scoreTotal];
+        NSLog(@"%@", [manager timeOutput]);
     }
     return 0;
 }

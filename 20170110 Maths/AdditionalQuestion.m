@@ -18,7 +18,18 @@
         NSInteger secondNumber = arc4random_uniform(90)+10;
         _question = [NSString stringWithFormat:@"What is %ld + %ld? Enter quit to quit.", firstNumber, secondNumber];
         _answer = firstNumber + secondNumber;
+        _starttime = [NSDate date];
     }
     return self;
 }
+
+- (NSInteger) answer {
+    _endtime = [NSDate date];
+    return _answer;
+}
+
+- (NSTimeInterval) answerTime {
+    return [self.endtime timeIntervalSinceDate:self.starttime];
+}
+
 @end
