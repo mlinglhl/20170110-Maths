@@ -6,18 +6,17 @@
 //  Copyright © 2017 Minhung Ling. All rights reserved.
 //
 
-#import "AdditionalQuestion.h"
+#import "Question.h"
 
-@implementation AdditionalQuestion
+@implementation Question
 
-- (instancetype)initWithQuestion
+- (instancetype)init
 {
     self = [super init];
     if (self) {
-        NSInteger firstNumber = arc4random_uniform(90)+10;
-        NSInteger secondNumber = arc4random_uniform(90)+10;
-        _question = [NSString stringWithFormat:@"What is %ld + %ld? Enter quit to quit.", firstNumber, secondNumber];
-        _answer = firstNumber + secondNumber;
+        _leftValue = arc4random_uniform(91)+10;
+        _rightValue = arc4random_uniform(91)+10;
+        _divisionCheck = NO;
         _starttime = [NSDate date];
     }
     return self;
@@ -30,6 +29,10 @@
 
 - (NSTimeInterval) answerTime {
     return [self.endtime timeIntervalSinceDate:self.starttime];
+}
+
+- (void) generateQuestion {
+    
 }
 
 @end

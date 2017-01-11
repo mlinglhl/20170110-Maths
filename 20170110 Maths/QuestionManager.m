@@ -7,7 +7,7 @@
 //
 
 #import "QuestionManager.h"
-#import "AdditionalQuestion.h"
+#import "Question.h"
 
 @implementation QuestionManager
 
@@ -22,7 +22,7 @@
 
 - (NSString *) timeOutput {
     float totalTime = 0;
-    for (AdditionalQuestion *questions in self.questions) {
+    for (Question *questions in self.questions) {
         totalTime = totalTime + [questions answerTime];
     }
     return [NSString stringWithFormat:@"total time %.1fs. average time %.1fs.", round(totalTime*10)/10, round(totalTime/[self.questions count]*10)/10];

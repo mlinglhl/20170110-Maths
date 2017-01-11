@@ -7,10 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AdditionalQuestion.h"
+#import "Question.h"
+#import "AdditionQuestion.h"
 #import "InputHandler.h"
 #import "ScoreKeeper.h"
 #import "QuestionManager.h"
+#import "QuestionFactory.h"
 
 int main(int argc, const char * argv[]) {
     
@@ -24,8 +26,10 @@ int main(int argc, const char * argv[]) {
     QuestionManager *manager = [[QuestionManager alloc] init];
     BOOL gameOn = YES;
     ScoreKeeper *score = [[ScoreKeeper alloc] init];
+    QuestionFactory *questionMaker = [[QuestionFactory alloc] init];
+
     while (gameOn == YES) {
-        AdditionalQuestion *question1 = [[AdditionalQuestion alloc] initWithQuestion];
+        Question *question1 = [questionMaker generateRandomQuestion];
         [manager.questions addObject:question1];
         NSLog(@"%@", question1.question);
         NSString *inputString = [InputHandler handleUserInput];
@@ -36,7 +40,7 @@ int main(int argc, const char * argv[]) {
         }
         
         NSInteger inputInteger = [inputString intValue];
-        if (inputInteger == question1.answer) {
+        if (inputInteger == [question1 answer]) {
             NSLog(@"Correct!");
             score.right++;
         }
